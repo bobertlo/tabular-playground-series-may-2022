@@ -1,0 +1,47 @@
+schema: '2.0'
+stages:
+  clean:
+    cmd: python clean.py
+    deps:
+    - path: clean.py
+      md5: d5c78c5b305c4d64207ef6b6bc978eb6
+      size: 886
+    - path: test.csv
+      md5: ba8fdae95647d268e6170abb2f96369f
+      size: 247187094
+    - path: train.csv
+      md5: 38d8ca74676e1be914a84d2ae3696318
+      size: 318733334
+    outs:
+    - path: test.pickle
+      md5: e9273ee35402f83c197b7eb7d586cfb5
+      size: 229601414
+    - path: train.pickle
+      md5: 423568750e41c2cab9af046bd270cc44
+      size: 302401714
+  train:
+    cmd: python train.py
+    deps:
+    - path: train.pickle
+      md5: 423568750e41c2cab9af046bd270cc44
+      size: 302401714
+    - path: train.py
+      md5: d6e00a038999bc57413b85dbbaf36cb0
+      size: 1609
+    params:
+      params.yaml:
+        train:
+          lr: 0.03
+          bs: 2048
+    outs:
+    - path: model
+      md5: 93169dc908d4bc4b380ea290bb448b3a.dir
+      size: 2532227
+      nfiles: 4
+    - path: training_metrics.json
+      md5: d3a24a71a9427ae807fb7673a7821c0f
+      size: 152
+    - path: training_metrics/scalars
+      md5: 77e7ed474d7662f31fa4ed466ecae244.dir
+      size: 1534
+      nfiles: 4
