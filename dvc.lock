@@ -33,15 +33,16 @@ stages:
         train:
           lr: 0.003
           bs: 2048
+          epochs: 25
     outs:
     - path: model
-      md5: 01505765b677def2f9044c0522c16bfa.dir
+      md5: 5a83b9f7dbaf4ff5fa985b852476c567.dir
       size: 2572561
       nfiles: 4
     - path: training_metrics.json
-      md5: 36a8d3d71e3a88371ee8dc67823fdcaa
+      md5: ddb88fe2d33306d225dd1251f1f30031
       size: 153
     - path: training_metrics/scalars
-      md5: 1c5a848f22716b46d4b500524adc2c5c.dir
-      size: 1537
+      md5: 8932bd8b54ab6c02ad6bbeaf7aa5cb33.dir
+      size: 3777
       nfiles: 4

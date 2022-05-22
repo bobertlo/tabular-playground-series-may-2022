@@ -1,3 +1,4 @@
 train:
   lr: 0.003
   bs: 2048
+  epochs: 25
