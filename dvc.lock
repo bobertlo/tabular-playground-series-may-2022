@@ -26,23 +26,24 @@ stages:
       md5: d64f1b7feb316ee2dd7e36d6bf139d19
       size: 324001771
     - path: train.py
-      md5: eb81d1c02213b84a7a18bb05e1bfb9ec
-      size: 1885
+      md5: b33741a2a44738f0e60508e5d5bc9bce
+      size: 2090
     params:
       params.yaml:
         train:
           lr: 0.001
           bs: 2048
           epochs: 25
+          dropout: 0
     outs:
     - path: model
-      md5: 8aff7b644da8e62b2f6a191713a918d3.dir
-      size: 2590994
+      md5: 3170088d7cba0ce470206cf984c7c870.dir
+      size: 2625116
       nfiles: 4
     - path: training_metrics.json
-      md5: 34555750c309aaecffd95788dae6b916
-      size: 154
+      md5: e96e81895a3f9ebc9ac1ae27901e9922
+      size: 153
     - path: training_metrics/scalars
-      md5: e6253cb23bd55c114cee947109094ab8.dir
-      size: 3774
+      md5: 8b994d7f20b146d1f90a3337b343b5a2.dir
+      size: 3775
       nfiles: 4

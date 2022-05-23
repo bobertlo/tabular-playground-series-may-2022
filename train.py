@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import Adam
@@ -31,15 +31,19 @@ def make_model():
     model.add(Dense(512, 
         kernel_regularizer=regularizers.l2(1e-5),
         input_dim=x_train.shape[1], activation="swish"))
+    model.add(Dropout(params.get("dropout", 0)))
     model.add(Dense(256, 
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
+    model.add(Dropout(params.get("dropout", 0)))
     model.add(Dense(128,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
+    model.add(Dropout(params.get("dropout", 0)))
     model.add(Dense(64,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
+    model.add(Dropout(params.get("dropout", 0)))
     model.add(Dense(1, activation="sigmoid"))
     return model
 
