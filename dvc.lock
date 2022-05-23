@@ -34,16 +34,16 @@ stages:
           lr: 0.001
           bs: 2048
           epochs: 25
-          dropout: 0
+          dropout: 0.1
     outs:
     - path: model
-      md5: 3170088d7cba0ce470206cf984c7c870.dir
-      size: 2625116
+      md5: e43ab58023ccf039ea7ecfcb29bbc4f6.dir
+      size: 2638980
       nfiles: 4
     - path: training_metrics.json
-      md5: e96e81895a3f9ebc9ac1ae27901e9922
-      size: 153
+      md5: c6ee28f1057e2b696f65a32a00f18a9e
+      size: 154
     - path: training_metrics/scalars
-      md5: 8b994d7f20b146d1f90a3337b343b5a2.dir
-      size: 3775
+      md5: 1f4063f24710561d8a60bd852bfb0595.dir
+      size: 3769
       nfiles: 4

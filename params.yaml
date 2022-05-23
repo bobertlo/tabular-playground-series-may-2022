@@ -2,4 +2,4 @@ train:
   lr: 0.001
   bs: 2048
   epochs: 25
-  dropout: 0
+  dropout: 0.1
