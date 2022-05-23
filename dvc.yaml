@@ -23,3 +23,13 @@ stages:
     plots:
     - training_metrics/scalars:
         cache: false
+  predict:
+    cmd: python predict.py
+    deps:
+    - predict.py
+    - test.pickle
+    - sample_submission.csv
+    params:
+    - train
+    outs:
+    - submission.csv

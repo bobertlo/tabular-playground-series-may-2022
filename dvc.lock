@@ -48,3 +48,27 @@ stages:
       md5: 39253350c27af58e6cbade8fb73ac77a.dir
       size: 6020
       nfiles: 4
+  predict:
+    cmd: python predict.py
+    deps:
+    - path: predict.py
+      md5: b4284fb1ff2b7596015860e3069854c1
+      size: 916
+    - path: sample_submission.csv
+      md5: 6da5a3183d83a067a0616552b258d9fa
+      size: 8300010
+    - path: test.pickle
+      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
+      size: 246401471
+    params:
+      params.yaml:
+        train:
+          lr: 0.001
+          bs: 2048
+          epochs: 40
+          dropout: 0.1
+          ensemble: false
+    outs:
+    - path: submission.csv
+      md5: c2de79e100db7fbfc720cdb92a3076ab
+      size: 13686568
