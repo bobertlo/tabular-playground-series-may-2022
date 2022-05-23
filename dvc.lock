@@ -31,18 +31,18 @@ stages:
     params:
       params.yaml:
         train:
-          lr: 0.003
+          lr: 0.001
           bs: 2048
           epochs: 25
     outs:
     - path: model
-      md5: 5a83b9f7dbaf4ff5fa985b852476c567.dir
-      size: 2572561
+      md5: 727b4b82623ba8a0396d450dca7e9893.dir
+      size: 2572562
       nfiles: 4
     - path: training_metrics.json
-      md5: ddb88fe2d33306d225dd1251f1f30031
-      size: 153
+      md5: f44411d0e52a1992c42ad321f0ebd752
+      size: 154
     - path: training_metrics/scalars
-      md5: 8932bd8b54ab6c02ad6bbeaf7aa5cb33.dir
-      size: 3777
+      md5: 346b3bea64113f77f86ca3cacf226c22.dir
+      size: 3766
       nfiles: 4
