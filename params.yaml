@@ -1,5 +1,6 @@
 train:
   lr: 0.001
   bs: 2048
-  epochs: 25
+  epochs: 40
   dropout: 0.1
+  ensemble: false
