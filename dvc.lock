@@ -51,9 +51,13 @@ stages:
   predict:
     cmd: python predict.py
     deps:
+    - path: model
+      md5: 216f845f605f939943fa7f718250d8bd.dir
+      size: 2638980
+      nfiles: 4
     - path: predict.py
-      md5: b4284fb1ff2b7596015860e3069854c1
-      size: 916
+      md5: f6b6824f265c1f1629bf01166ccd58a4
+      size: 924
     - path: sample_submission.csv
       md5: 6da5a3183d83a067a0616552b258d9fa
       size: 8300010

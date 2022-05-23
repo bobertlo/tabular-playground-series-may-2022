@@ -29,6 +29,7 @@ stages:
     - predict.py
     - test.pickle
     - sample_submission.csv
+    - model
     params:
     - train
     outs:

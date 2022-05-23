@@ -28,7 +28,7 @@ for f in model_files:
 
 n_preds = len(preds)
 if n_preds > 1:
-    preds = np.sum(preds) / n_preds
+    preds = np.sum(preds, axis=0) / n_preds
 else:
     preds = preds[0]
 
