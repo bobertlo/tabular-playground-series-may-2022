@@ -26,34 +26,35 @@ stages:
       md5: d64f1b7feb316ee2dd7e36d6bf139d19
       size: 324001771
     - path: train.py
-      md5: 42dbfc118926fcb7b2671491548be7ff
-      size: 3511
+      md5: 4a9ec57d91421745be9d30bc9a612907
+      size: 3906
     params:
       params.yaml:
         train:
-          lr: 0.001
+          lr_start: 0.003
+          lr_end: 0.0001
           bs: 2048
-          epochs: 40
+          epochs: 50
           dropout: 0.1
           ensemble: false
     outs:
     - path: model
-      md5: 216f845f605f939943fa7f718250d8bd.dir
-      size: 2638980
+      md5: 083e045d1fb685ba626abbea642f444c.dir
+      size: 2638720
       nfiles: 4
     - path: training_metrics.json
-      md5: f8c11b238f49d3713436fa5031432259
+      md5: 99cf26faa32adbde69f14b75c3045c47
       size: 154
     - path: training_metrics/scalars
-      md5: 39253350c27af58e6cbade8fb73ac77a.dir
-      size: 6020
+      md5: 29727daa336de9458b7e0659897e6a20.dir
+      size: 7516
       nfiles: 4
   predict:
     cmd: python predict.py
     deps:
     - path: model
-      md5: 216f845f605f939943fa7f718250d8bd.dir
-      size: 2638980
+      md5: 083e045d1fb685ba626abbea642f444c.dir
+      size: 2638720
       nfiles: 4
     - path: predict.py
       md5: f6b6824f265c1f1629bf01166ccd58a4
@@ -67,12 +68,13 @@ stages:
     params:
       params.yaml:
         train:
-          lr: 0.001
+          lr_start: 0.003
+          lr_end: 0.0001
           bs: 2048
-          epochs: 40
+          epochs: 50
           dropout: 0.1
           ensemble: false
     outs:
     - path: submission.csv
-      md5: c2de79e100db7fbfc720cdb92a3076ab
-      size: 13686568
+      md5: 67dd66e75b4311c0701b0626a220193c
+      size: 13594890

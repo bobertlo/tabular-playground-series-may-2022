@@ -1,6 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.losses import BinaryCrossentropy
+from tensorflow.keras.callbacks import LearningRateScheduler
 from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import AUC
@@ -14,6 +15,7 @@ from ruamel.yaml import YAML
 import pickle
 import json
 import os
+import math
 
 # load the parameter file and select the 'train' section:
 yaml = YAML(typ='safe')
@@ -21,6 +23,20 @@ with open('params.yaml', 'rb') as params_file:
     model_params = yaml.load(params_file)
 params = model_params.get("train", {})
 print("Parameters:", params)
+
+epochs = params.get("epochs")
+lr_start = params.get("lr_start")
+lr_end = params.get("lr_end")
+ensemble = params.get("ensemble")
+dropout = params.get("dropout")
+batch_size = params.get("bs")
+
+def cosine_decay(epoch):
+    if epochs > 1:
+        w = (1 + math.cos(epoch / (epochs-1) * math.pi)) / 2
+    else:
+        w = 1
+    return w * lr_start + (1 - w) * lr_end
 
 # load the training/validation datasets
 print("laoding dataset")
@@ -33,34 +49,36 @@ def make_model():
     model.add(Dense(512, 
         kernel_regularizer=regularizers.l2(1e-5),
         input_dim=X_train.shape[1], activation="swish"))
-    model.add(Dropout(params.get("dropout", 0)))
+    model.add(Dropout(dropout))
     model.add(Dense(256, 
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(params.get("dropout", 0)))
+    model.add(Dropout(dropout))
     model.add(Dense(128,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(params.get("dropout", 0)))
+    model.add(Dropout(dropout))
     model.add(Dense(64,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(params.get("dropout", 0)))
+    model.add(Dropout(dropout))
     model.add(Dense(1, activation="sigmoid"))
     return model
 
 
 def train_model(X_train, X_valid, y_train, y_valid, callbacks=[]):
     model = make_model()
-    opt = Adam(learning_rate = params.get("lr", 0.01))
+    opt = Adam(learning_rate = lr_start)
     lf = BinaryCrossentropy()
     metrics = [AUC(name="auc")]
+    lr = LearningRateScheduler(cosine_decay)
+    callbacks.append(lr)
     model.compile(optimizer=opt, loss=lf, metrics=metrics)
     history = model.fit(
         X_train, y_train,
         validation_data=(X_valid, y_valid),
-        batch_size = params.get("bs", 2048),
-        epochs=params.get("epochs", 10),
+        batch_size = batch_size,
+        epochs=epochs,
         callbacks=callbacks)
     metrics = {}
     metrics['auc'] = history.history['auc'][-1]
