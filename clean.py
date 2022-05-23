@@ -5,15 +5,15 @@ print("loading data ...")
 train_df = pd.read_csv("train.csv")
 test_df = pd.read_csv("test.csv")
 
-def process_string(df, field):
+# def process_string(df, field):
+for df in [train_df, test_df]:
     for i in range(10):
-        df['ch_' + str(i)] = df[field].str.get(i).apply(ord) - ord('A')
-    df["unique_characters"] = df[field].apply(lambda s: len(set(s)))
-    return df
-
-print("processing f_27 characters ...")
-train_df = process_string(train_df, "f_27")
-test_df = process_string(test_df, "f_27")
+        df['ch_' + str(i)] = df["f_27"].str.get(i).apply(ord) - ord('A')
+    df["unique_characters"] = df["f_27"].apply(lambda s: len(set(s)))
+    df['i_02_21'] = (df.f_21 + df.f_02 > 5.2).astype(int) - (df.f_21 + df.f_02 < -5.3).astype(int)
+    df['i_05_22'] = (df.f_22 + df.f_05 > 5.1).astype(int) - (df.f_22 + df.f_05 < -5.4).astype(int)
+    i_00_01_26 = df.f_00 + df.f_01 + df.f_26
+    df['i_00_01_26'] = (i_00_01_26 > 5.0).astype(int) - (i_00_01_26 < -5.0).astype(int)
 
 # drop id and f_27 and create final datasets
 print("preparing final datasets ...")

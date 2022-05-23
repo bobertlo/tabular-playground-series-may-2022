@@ -4,8 +4,8 @@ stages:
     cmd: python clean.py
     deps:
     - path: clean.py
-      md5: d5c78c5b305c4d64207ef6b6bc978eb6
-      size: 886
+      md5: f4f6abbf1c1fdc0a25ab2ac71678c49d
+      size: 1111
     - path: test.csv
       md5: ba8fdae95647d268e6170abb2f96369f
       size: 247187094
@@ -14,17 +14,17 @@ stages:
       size: 318733334
     outs:
     - path: test.pickle
-      md5: e9273ee35402f83c197b7eb7d586cfb5
-      size: 229601414
+      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
+      size: 246401471
     - path: train.pickle
-      md5: 423568750e41c2cab9af046bd270cc44
-      size: 302401714
+      md5: d64f1b7feb316ee2dd7e36d6bf139d19
+      size: 324001771
   train:
     cmd: python train.py
     deps:
     - path: train.pickle
-      md5: 423568750e41c2cab9af046bd270cc44
-      size: 302401714
+      md5: d64f1b7feb316ee2dd7e36d6bf139d19
+      size: 324001771
     - path: train.py
       md5: eb81d1c02213b84a7a18bb05e1bfb9ec
       size: 1885
@@ -36,13 +36,13 @@ stages:
           epochs: 25
     outs:
     - path: model
-      md5: 727b4b82623ba8a0396d450dca7e9893.dir
-      size: 2572562
+      md5: 8aff7b644da8e62b2f6a191713a918d3.dir
+      size: 2590994
       nfiles: 4
     - path: training_metrics.json
-      md5: f44411d0e52a1992c42ad321f0ebd752
+      md5: 34555750c309aaecffd95788dae6b916
       size: 154
     - path: training_metrics/scalars
-      md5: 346b3bea64113f77f86ca3cacf226c22.dir
-      size: 3766
+      md5: e6253cb23bd55c114cee947109094ab8.dir
+      size: 3774
       nfiles: 4
