@@ -4,4 +4,4 @@ train:
   bs: 2048
   epochs: 100
   dropout: 0.2
-  ensemble: false
+  ensemble: true
