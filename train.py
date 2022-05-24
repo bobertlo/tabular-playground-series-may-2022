@@ -7,7 +7,6 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import AUC
 
 from sklearn.model_selection import KFold
-
 from sklearn.model_selection import train_test_split
 
 from dvclive.keras import DvcLiveCallback

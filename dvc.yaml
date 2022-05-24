@@ -5,6 +5,8 @@ stages:
     - clean.py
     - test.csv
     - train.csv
+    params:
+    - clean
     outs:
     - test.pickle
     - train.pickle

@@ -4,13 +4,21 @@ from tensorflow import keras
 import pandas as pd
 from ruamel.yaml import YAML
 yaml = YAML(typ='safe')
+import sys
+import shutil
 
 with open('params.yaml', 'rb') as params_file:
     model_params = yaml.load(params_file)
-params = model_params.get("train", {})
+train_params = model_params.get("train", {})
+predict_params = model_params.get("predict", {})
+
+if not predict_params.get("predict", True):
+    print("prediction disabled, exiting")
+    shutil.copy("sample_submission.csv", "submission.csv")
+    sys.exit(0)
 
 model_files = []
-if params.get("ensemble", False):
+if train_params.get("ensemble", False):
     for i in range(5):
         model_files.append("model/fold_" + str(i))
 else:

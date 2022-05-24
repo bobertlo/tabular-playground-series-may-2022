@@ -1,3 +1,5 @@
+clean:
+  scaler: false
 train:
   lr_start: 0.003
   lr_end: 0.0001
@@ -5,3 +7,5 @@ train:
   epochs: 100
   dropout: 0.2
   ensemble: false
+predict:
+  predict: false
