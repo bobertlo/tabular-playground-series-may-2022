@@ -15,23 +15,23 @@ stages:
     params:
       params.yaml:
         clean:
-          scaler: false
+          scaler: true
     outs:
     - path: test.pickle
-      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
-      size: 246401471
+      md5: 9aeaaf924ecb3a4a6e6af7f0f77d4095
+      size: 246400164
     - path: train.pickle
-      md5: d64f1b7feb316ee2dd7e36d6bf139d19
-      size: 324001771
+      md5: 4f462b194381de169761238c2846d7e9
+      size: 324000716
   train:
     cmd: python train.py
     deps:
     - path: train.pickle
-      md5: d64f1b7feb316ee2dd7e36d6bf139d19
-      size: 324001771
+      md5: 4f462b194381de169761238c2846d7e9
+      size: 324000716
     - path: train.py
-      md5: 33ee4cef5a47d0636a30858a0a4c58fe
-      size: 3905
+      md5: 20f3189065406ae0dd1422d0922257fa
+      size: 4247
     params:
       params.yaml:
         train:
@@ -39,26 +39,27 @@ stages:
           lr_end: 0.0001
           bs: 2048
           epochs: 100
-          dropout: 0.2
+          dropout: 0.3
+          batch_norm: 4
           ensemble: false
     outs:
     - path: model
-      md5: 9d1f424269ea66f002718a5581a50be5.dir
-      size: 2639154
+      md5: 7bf412c7cee4b5d42ffef9969458729c.dir
+      size: 2882551
       nfiles: 4
     - path: training_metrics.json
-      md5: b14b0196e97a787192e8d63b9660b271
-      size: 151
+      md5: 4447bcf268e58a8fb1bbb825db112f1c
+      size: 152
     - path: training_metrics/scalars
-      md5: 1480588c7d2e6153728fc62807493519.dir
-      size: 14995
+      md5: 366db7a85059426cb79c1e5e8cfedb77.dir
+      size: 14988
       nfiles: 4
   predict:
     cmd: python predict.py
     deps:
     - path: model
-      md5: 9d1f424269ea66f002718a5581a50be5.dir
-      size: 2639154
+      md5: 7bf412c7cee4b5d42ffef9969458729c.dir
+      size: 2882551
       nfiles: 4
     - path: predict.py
       md5: b9f19b9c4f2e93a3221e33d8749c9b24
@@ -67,8 +68,8 @@ stages:
       md5: 6da5a3183d83a067a0616552b258d9fa
       size: 8300010
     - path: test.pickle
-      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
-      size: 246401471
+      md5: 9aeaaf924ecb3a4a6e6af7f0f77d4095
+      size: 246400164
     params:
       params.yaml:
         train:
@@ -76,7 +77,8 @@ stages:
           lr_end: 0.0001
           bs: 2048
           epochs: 100
-          dropout: 0.2
+          dropout: 0.3
+          batch_norm: 4
           ensemble: false
     outs:
     - path: submission.csv

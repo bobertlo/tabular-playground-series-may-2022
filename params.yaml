@@ -1,11 +1,12 @@
 clean:
-  scaler: false
+  scaler: true
 train:
   lr_start: 0.003
   lr_end: 0.0001
   bs: 2048
   epochs: 100
-  dropout: 0.2
+  dropout: 0.3
+  batch_norm: 4
   ensemble: false
 predict:
   predict: false

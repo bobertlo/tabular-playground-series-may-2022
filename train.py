@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.callbacks import LearningRateScheduler
 from tensorflow.keras import regularizers
@@ -29,6 +29,7 @@ lr_end = params.get("lr_end")
 ensemble = params.get("ensemble")
 dropout = params.get("dropout")
 batch_size = params.get("bs")
+batch_norm = params.get("batch_norm")
 
 def cosine_decay(epoch):
     if epochs > 1:
@@ -48,19 +49,23 @@ def make_model():
     model.add(Dense(512, 
         kernel_regularizer=regularizers.l2(1e-5),
         input_dim=X_train.shape[1], activation="swish"))
-    model.add(Dropout(dropout))
+    if dropout > 0: model.add(Dropout(dropout))
+    if batch_norm > 0: model.add(BatchNormalization())
     model.add(Dense(256, 
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(dropout))
+    if dropout > 0: model.add(Dropout(dropout))
+    if batch_norm > 1: model.add(BatchNormalization())
     model.add(Dense(128,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(dropout))
+    if dropout > 0: model.add(Dropout(dropout))
+    if batch_norm > 2: model.add(BatchNormalization())
     model.add(Dense(64,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
-    model.add(Dropout(dropout))
+    if dropout > 0: model.add(Dropout(dropout))
+    if batch_norm > 3: model.add(BatchNormalization())
     model.add(Dense(1, activation="sigmoid"))
     return model
 
