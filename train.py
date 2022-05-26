@@ -96,10 +96,10 @@ if params.get("ensemble", False):
     kf = KFold(n_splits=5)
     metrics = []
     for fold, (idx_tr, idx_va) in enumerate(kf.split(X_train)):
-        X_tr = X_train.iloc[idx_tr]
-        X_va = X_train.iloc[idx_va]
-        y_tr = y_train.iloc[idx_tr]
-        y_va = y_train.iloc[idx_va]
+        X_tr = X_train[idx_tr]
+        X_va = X_train[idx_va]
+        y_tr = y_train[idx_tr]
+        y_va = y_train[idx_va]
 
         fold_model, fold_metrics = train_model(X_tr, X_va, y_tr, y_va)
         fold_model.save("model/fold_" + str(fold))
