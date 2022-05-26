@@ -20,17 +20,21 @@ if not predict_params.get("predict", True):
 model_files = []
 if train_params.get("ensemble", False):
     for i in range(5):
-        model_files.append("model/fold_" + str(i))
+        model_files.append(("model/fold_" + str(i), "scalers/scaler_%i.pickle" % i))
 else:
-    model_files.append("model")
+    model_files.append(("model", "scalers/scaler.pickle"))
 
 with open('test.pickle', 'rb') as data_file:
     (X_test) = pickle.load(data_file)
 
 preds = []
-for f in model_files:
-    print("running", f)
-    fold_model = keras.models.load_model(f)
+for (model_file, scaler_file) in model_files:
+    with open(scaler_file, 'rb') as data_file:
+        scaler = pickle.load(data_file)
+    if scaler is not None:
+        X_test = scaler.fit_transform(X_test)
+    print("running", model_file)
+    fold_model = keras.models.load_model(model_file)
     fold_preds = fold_model.predict(X_test)
     preds.append(fold_preds)
 

@@ -5,6 +5,7 @@ from tensorflow.keras.callbacks import LearningRateScheduler
 from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import AUC
+from sklearn.preprocessing import StandardScaler
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
@@ -71,6 +72,12 @@ def make_model():
 
 
 def train_model(X_train, X_valid, y_train, y_valid, callbacks=[]):
+    scaler = None
+    if params.get("scale", False):
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_valid = scaler.fit_transform(X_valid)
+
     model = make_model()
     opt = Adam(learning_rate = lr_start)
     lf = BinaryCrossentropy()
@@ -90,8 +97,11 @@ def train_model(X_train, X_valid, y_train, y_valid, callbacks=[]):
     metrics['loss'] = history.history['loss'][-1]
     metrics['val_loss'] = history.history['val_loss'][-1]
 
-    return model, metrics
+    return model, scaler, metrics
 
+os.makedirs("scalers/", exist_ok=True)
+
+scaler = None
 if params.get("ensemble", False):
     kf = KFold(n_splits=5)
     metrics = []
@@ -101,7 +111,7 @@ if params.get("ensemble", False):
         y_tr = y_train.iloc[idx_tr]
         y_va = y_train.iloc[idx_va]
 
-        fold_model, fold_metrics = train_model(X_tr, X_va, y_tr, y_va)
+        fold_model, fold_scaler, fold_metrics = train_model(X_tr, X_va, y_tr, y_va)
         fold_model.save("model/fold_" + str(fold))
         metrics.append(fold_metrics)
     mean_metrics = {}
@@ -117,5 +127,8 @@ if params.get("ensemble", False):
 
 else:
     X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train)
-    model, _ = train_model(X_train, X_valid, y_train, y_valid, callbacks=[DvcLiveCallback(path="training_metrics")])
+    model, scaler, _ = train_model(X_train, X_valid, y_train, y_valid, callbacks=[DvcLiveCallback(path="training_metrics")])
     model.save("model")
+    
+    with open('scalers/scaler.pickle', 'wb') as data_file:
+        pickle.dump(scaler, data_file)

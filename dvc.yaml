@@ -5,8 +5,6 @@ stages:
     - clean.py
     - test.csv
     - train.csv
-    params:
-    - clean
     outs:
     - test.pickle
     - train.pickle
@@ -19,6 +17,7 @@ stages:
     - train
     outs:
     - model
+    - scalers
     metrics:
     - training_metrics.json:
         cache: false
@@ -32,7 +31,9 @@ stages:
     - test.pickle
     - sample_submission.csv
     - model
+    - scalers
     params:
-    - train
+    - train.ensemble
+    - predict
     outs:
     - submission.csv

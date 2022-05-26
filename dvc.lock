@@ -4,34 +4,30 @@ stages:
     cmd: python clean.py
     deps:
     - path: clean.py
-      md5: 105d2973d0e84fcb49e502e36e4c00fd
-      size: 1665
+      md5: f4f6abbf1c1fdc0a25ab2ac71678c49d
+      size: 1111
     - path: test.csv
       md5: ba8fdae95647d268e6170abb2f96369f
       size: 247187094
     - path: train.csv
       md5: 38d8ca74676e1be914a84d2ae3696318
       size: 318733334
-    params:
-      params.yaml:
-        clean:
-          scaler: true
     outs:
     - path: test.pickle
-      md5: 9aeaaf924ecb3a4a6e6af7f0f77d4095
-      size: 246400164
+      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
+      size: 246401471
     - path: train.pickle
-      md5: 4f462b194381de169761238c2846d7e9
-      size: 324000716
+      md5: d64f1b7feb316ee2dd7e36d6bf139d19
+      size: 324001771
   train:
     cmd: python train.py
     deps:
     - path: train.pickle
-      md5: 4f462b194381de169761238c2846d7e9
-      size: 324000716
+      md5: d64f1b7feb316ee2dd7e36d6bf139d19
+      size: 324001771
     - path: train.py
-      md5: 20f3189065406ae0dd1422d0922257fa
-      size: 4247
+      md5: 15bd6d5ada90d6f8b637f990aef56a08
+      size: 4666
     params:
       params.yaml:
         train:
@@ -42,44 +38,48 @@ stages:
           dropout: 0.3
           batch_norm: 4
           ensemble: false
+          scale: true
     outs:
     - path: model
-      md5: 7bf412c7cee4b5d42ffef9969458729c.dir
+      md5: eb8ac3aa06f0d4342dea8aeaac76dc04.dir
       size: 2882551
       nfiles: 4
+    - path: scalers
+      md5: 00220c72cf6c90ac80237a415de9fc20.dir
+      size: 1934
+      nfiles: 1
     - path: training_metrics.json
-      md5: 4447bcf268e58a8fb1bbb825db112f1c
-      size: 152
+      md5: 929fbc15257e87ccd73855f6a6b99e21
+      size: 153
     - path: training_metrics/scalars
-      md5: 366db7a85059426cb79c1e5e8cfedb77.dir
-      size: 14988
+      md5: 3b92369e0672022a523f73ce5ed701cd.dir
+      size: 14998
       nfiles: 4
   predict:
     cmd: python predict.py
     deps:
     - path: model
-      md5: 7bf412c7cee4b5d42ffef9969458729c.dir
+      md5: eb8ac3aa06f0d4342dea8aeaac76dc04.dir
       size: 2882551
       nfiles: 4
     - path: predict.py
-      md5: b9f19b9c4f2e93a3221e33d8749c9b24
-      size: 1172
+      md5: d346ef3f6d9e82898bd91ce218b74427
+      size: 1435
     - path: sample_submission.csv
       md5: 6da5a3183d83a067a0616552b258d9fa
       size: 8300010
+    - path: scalers
+      md5: 00220c72cf6c90ac80237a415de9fc20.dir
+      size: 1934
+      nfiles: 1
     - path: test.pickle
-      md5: 9aeaaf924ecb3a4a6e6af7f0f77d4095
-      size: 246400164
+      md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
+      size: 246401471
     params:
       params.yaml:
-        train:
-          lr_start: 0.003
-          lr_end: 0.0001
-          bs: 2048
-          epochs: 100
-          dropout: 0.3
-          batch_norm: 4
-          ensemble: false
+        predict:
+          predict: false
+        train.ensemble: false
     outs:
     - path: submission.csv
       md5: 6da5a3183d83a067a0616552b258d9fa

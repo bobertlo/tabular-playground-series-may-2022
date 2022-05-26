@@ -1,16 +1,5 @@
 import pandas as pd
 import pickle
-from sklearn.preprocessing import StandardScaler
-from ruamel.yaml import YAML
-
-# load the parameter file and select the 'train' section:
-yaml = YAML(typ='safe')
-with open('params.yaml', 'rb') as params_file:
-    model_params = yaml.load(params_file)
-params = model_params.get("clean", {})
-print("Parameters:", params)
-
-use_scaler = params.get("scaler")
 
 print("loading data ...")
 train_df = pd.read_csv("train.csv")
@@ -31,13 +20,6 @@ print("preparing final datasets ...")
 x_train = train_df.drop(["id","target","f_27"], axis=1)
 y_train = train_df["target"]
 x_test = test_df.drop(["id", "f_27"], axis=1)
-
-# do it here to process the test set also. bit dirty, oh well.
-if use_scaler:
-    scaler = StandardScaler().fit(x_train)
-    x_train = scaler.transform(x_train)
-    x_test = scaler.transform(x_test)
-
 
 print("writing pickles ...")
 with open('train.pickle', 'wb') as data_file:
