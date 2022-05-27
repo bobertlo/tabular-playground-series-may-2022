@@ -113,6 +113,8 @@ if params.get("ensemble", False):
 
         fold_model, fold_scaler, fold_metrics = train_model(X_tr, X_va, y_tr, y_va)
         fold_model.save("model/fold_" + str(fold))
+        with open('scalers/scaler_%i.pickle' % fold, 'wb') as data_file:
+            pickle.dump(fold_scaler, data_file)
         metrics.append(fold_metrics)
     mean_metrics = {}
     for key in metrics[0].keys():
