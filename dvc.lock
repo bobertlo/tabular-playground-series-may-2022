@@ -34,23 +34,23 @@ stages:
           lr_start: 0.003
           lr_end: 0.0001
           bs: 2048
-          epochs: 150
+          epochs: 50
           dropout: 0.3
           batch_norm: 4
           ensemble: true
           scale: true
     outs:
     - path: model
-      md5: 8a43856823b413ecc790660795a84356.dir
-      size: 14434948
+      md5: 1da69069a76189098f6d0652ca7c082f.dir
+      size: 14433030
       nfiles: 20
     - path: scalers
       md5: dd2f826cf7e2760f85926163db6038ef.dir
       size: 9670
       nfiles: 5
     - path: training_metrics.json
-      md5: 2270e1680f2c56f76aba75f52e889296
-      size: 119
+      md5: c214340a410c89efb4eb8426e007dcfc
+      size: 120
     - path: training_metrics/scalars
       md5: d751713988987e9331980363e24189ce.dir
       size: 0
@@ -59,8 +59,8 @@ stages:
     cmd: python predict.py
     deps:
     - path: model
-      md5: 8a43856823b413ecc790660795a84356.dir
-      size: 14434948
+      md5: 1da69069a76189098f6d0652ca7c082f.dir
+      size: 14433030
       nfiles: 20
     - path: predict.py
       md5: d346ef3f6d9e82898bd91ce218b74427
@@ -82,5 +82,5 @@ stages:
         train.ensemble: true
     outs:
     - path: submission.csv
-      md5: 7e0747f149d3f29cd29568cdc9559fa3
-      size: 13484206
+      md5: de74bed013f9b041df61f522355bf21f
+      size: 13625232
