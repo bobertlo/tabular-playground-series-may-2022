@@ -26,8 +26,8 @@ stages:
       md5: d64f1b7feb316ee2dd7e36d6bf139d19
       size: 324001771
     - path: train.py
-      md5: a9e358d52b6ea29b093069d08c3d95b9
-      size: 4787
+      md5: ed670f61f369118ca11a49e1e37693eb
+      size: 4788
     params:
       params.yaml:
         train:
@@ -37,31 +37,31 @@ stages:
           epochs: 75
           dropout: 0.3
           batch_norm: 4
-          ensemble: true
+          ensemble: false
           scale: true
     outs:
     - path: model
-      md5: 5723be694b6b6f290a5246731a180bff.dir
-      size: 14433672
-      nfiles: 20
+      md5: c82a61b36959aa6436953209a6f2966e.dir
+      size: 5951093
+      nfiles: 4
     - path: scalers
-      md5: dd2f826cf7e2760f85926163db6038ef.dir
-      size: 9670
-      nfiles: 5
+      md5: 5072097832ea1164c3357c9eea322980.dir
+      size: 1934
+      nfiles: 1
     - path: training_metrics.json
-      md5: 4e7fa75e6f7d1c02baf4af823d01c672
-      size: 120
+      md5: 3e159426f1473b2538764cd7f06d6691
+      size: 154
     - path: training_metrics/scalars
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: 3c456de8a6880ea6cccdcc825f4ffe61.dir
+      size: 11262
+      nfiles: 4
   predict:
     cmd: python predict.py
     deps:
     - path: model
-      md5: 5723be694b6b6f290a5246731a180bff.dir
-      size: 14433672
-      nfiles: 20
+      md5: c82a61b36959aa6436953209a6f2966e.dir
+      size: 5951093
+      nfiles: 4
     - path: predict.py
       md5: d346ef3f6d9e82898bd91ce218b74427
       size: 1435
@@ -69,18 +69,18 @@ stages:
       md5: 6da5a3183d83a067a0616552b258d9fa
       size: 8300010
     - path: scalers
-      md5: dd2f826cf7e2760f85926163db6038ef.dir
-      size: 9670
-      nfiles: 5
+      md5: 5072097832ea1164c3357c9eea322980.dir
+      size: 1934
+      nfiles: 1
     - path: test.pickle
       md5: 473aaf98a9dbebf5cf94bbfb4c80ea91
       size: 246401471
     params:
       params.yaml:
         predict:
-          predict: true
-        train.ensemble: true
+          predict: false
+        train.ensemble: false
     outs:
     - path: submission.csv
-      md5: d82cd1b0ad34f4ec3c06f978361f7cb5
-      size: 13554490
+      md5: 6da5a3183d83a067a0616552b258d9fa
+      size: 8300010

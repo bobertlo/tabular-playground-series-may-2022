@@ -52,17 +52,17 @@ def make_model():
         input_dim=X_train.shape[1], activation="swish"))
     if dropout > 0: model.add(Dropout(dropout))
     if batch_norm > 0: model.add(BatchNormalization())
-    model.add(Dense(256, 
+    model.add(Dense(512, 
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
     if dropout > 0: model.add(Dropout(dropout))
     if batch_norm > 1: model.add(BatchNormalization())
-    model.add(Dense(128,
+    model.add(Dense(256,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
     if dropout > 0: model.add(Dropout(dropout))
     if batch_norm > 2: model.add(BatchNormalization())
-    model.add(Dense(64,
+    model.add(Dense(128,
         kernel_regularizer=regularizers.l2(1e-5),
         activation="swish"))
     if dropout > 0: model.add(Dropout(dropout))
