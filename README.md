@@ -8,7 +8,7 @@ used python scripts and [DVC](https://dvc.org/) pipelines to track the project.
 There is no ground-breaking machine learning happening in this model and it was
 mostly pieced together based on forum posts, shared notebooks, and trial and
 error. I was more focused on the workflow and incremental development of a
-model. I did successfully at implement ensembling in a model training pipeline
+model. I did successfully implement ensembling in a model training pipeline
 that can be enabled/disabled for either generating competition submissions or
 training a single model for development and testing. It would be interesting to
 explore other ways to handle this.
